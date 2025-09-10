@@ -6,11 +6,11 @@ async function handleRequest(request) {
   const url = new URL(request.url)
   
   if (url.pathname !== '/geo') {
-    return new Response('Not Found', { status: 404 })
+    return new Response('not found', { status: 404 })
   }
   
   if (request.method !== 'GET') {
-    return new Response('Method Not Allowed', { 
+    return new Response('method not allowed', {
       status: 405,
       headers: { 'Allow': 'GET' }
     })
@@ -22,11 +22,11 @@ async function handleRequest(request) {
     const targetIP = queryIP || clientIP
     
     if (!isValidIP(targetIP)) {
-      return createErrorResponse('Invalid IP address format', 400)
+      return createErrorResponse('invalid IP address format', 400)
     }
     
     if (isPrivateIP(targetIP)) {
-      return createErrorResponse('Cannot geolocate private IP addresses', 400)
+      return createErrorResponse('cannot geolocate private IP addresses', 400)
     }
     
     const cacheKey = `geo:${targetIP}`
@@ -53,8 +53,8 @@ async function handleRequest(request) {
     return response
     
   } catch (error) {
-    console.error('Geolocation error:', error)
-    return createErrorResponse('Internal server error', 500)
+    console.error('geolocation error:', error)
+    return createErrorResponse('internal server error', 500)
   }
 }
 
@@ -106,7 +106,7 @@ async function getGeolocationData(request, targetIP, isQueryIP) {
       region: 'Unknown',
       city: 'Unknown',
       timezone: 'Unknown',
-      note: 'Geolocation data only available for the requesting client IP'
+      note: 'geolocation data only available for the requesting client IP'
     }
   }
   
